@@ -100,3 +100,21 @@ public:
         }
     }
 };
+int main() {
+    srand(time(0));  // To randomize
+
+    DoublyLinkedList list;
+    int size = rand() % 16 + 5;  // Random number between 5 and 20
+    for (int i = 0; i < size; ++i) {
+        Goat g;
+        list.push_back(g);
+    }
+
+    cout << "List forward: ";
+    list.print();
+
+    cout << "List backward: ";
+    list.print_reverse();
+
+    return 0;
+}
