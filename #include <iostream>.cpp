@@ -29,3 +29,74 @@ public:
 
 string Goat::names[15] = {"Daisy", "Bella", "Charlie", "Lucy", "Max", "Milo", "Oscar", "Rocky", "Zoe", "Molly", "Buddy", "Toby", "Lola", "Sadie", "Coco"};
 string Goat::colors[15] = {"Red", "Blue", "Green", "Yellow", "Black", "White", "Gray", "Purple", "Pink", "Orange", "Brown", "Gold", "Silver", "Mauve", "Cyan"};
+
+class DoublyLinkedList {
+private:
+    struct Node {
+        Goat data;
+        Node* prev;
+        Node* next;
+        Node(Goat g, Node* p = nullptr, Node* n = nullptr) : data(g), prev(p), next(n) {}
+    };
+    Node* head;
+    Node* tail;
+
+public:
+    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+
+    void push_back(Goat g) {
+        Node* newNode = new Node(g);
+        if (!tail)
+            head = tail = newNode;
+        else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+
+    void push_front(Goat g) {
+        Node* newNode = new Node(g);
+        if (!head)
+            head = tail = newNode;
+        else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    }
+
+    void print() {
+        Node* current = head;
+        if (!current) {
+            cout << "List is empty" << endl;
+            return;
+        }
+        while (current) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+    void print_reverse() {
+        Node* current = tail;
+        if (!current) {
+            cout << "List is empty" << endl;
+            return;
+        }
+        while (current) {
+            cout << current->data << " ";
+            current = current->prev;
+        }
+        cout << endl;
+    }
+
+    ~DoublyLinkedList() {
+        while (head) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+};
